@@ -1,0 +1,51 @@
+#include SpringBoot/utils/SpringUtils.cheetah
+#include SpringBoot/filiter/filiter.cheetah
+
+function trackXXE(className,methodName,url,argIndex){
+	array allNode;
+	allNode = TrackVarIntoFun(className,methodName,argIndex,"org/xml/sax/XMLReader","parse",0,1);
+	size = GetArrayNum(allNode);
+	if(ToInt(size-1) < 0){return 0;}
+	i = 0;
+	print(methodName.":XXE注入 白盒测试调用链跟踪:");
+	cc = 7;
+	cs = 1;
+	while(i < size){
+		sentence = GetJavaSentence(allNode[i]);
+		noSan = filter(sentence);
+		if(noSan == 0){cc = 5;cs = 5;}
+		if(i == ToInt((size-1))){
+			if(cc != 5){cs = 2;cc = 3;}
+		}else{}
+		if(noSan == 0){
+			printcolor("[-]",6);printcolor("想办法绕过此类：",4);
+		}else{
+			printcolor("[+]",1);
+		}
+		printcolor(GetClassName(GetNodeClassName(allNode[i]))."   ",cc);
+		printcolor(sentence.StrRN(),cs);
+		i = ToInt(i+1);
+	}
+	if(cc != 5){
+		printcolor("白盒测试发现此调用链可能存在漏洞，请自行检测XXE".StrRN(),7);
+	}
+	
+	return 0;
+}
+function XXETrack(className){
+	an = GetClassAnnotation(className);
+	classPath = "http://127.0.0.1:8080".getSpringAnnotationValue(an);
+	methods = GetAllMethodName(className);
+	size = GetArrayNum(methods);
+	i = 0;
+	while(i < size){
+		argCnt = GetMethodArgCnt(className,methods[i]);
+		j = 0;
+		while(j < argCnt){
+			if(methods[i] != "<init>"){trackXXE(className,methods[i],classPath,j);}
+			j = ToInt(j+1);
+		}
+		i = ToInt(i+1);
+	}
+	return 0;
+}

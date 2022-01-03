@@ -1,0 +1,47 @@
+function getSpringAnnotationValue(an){
+	anSize = GetArrayNum(an);
+	i = 0;
+	flag = 0;
+	while(i < anSize){
+		if(GetAnnotationName(an[i]) == "org/springframework/web/bind/annotation/RequestMapping"){
+			allValue = GetAnnotationArgListValue(an[i],"value");
+			return allValue[0];
+		}
+		if(GetAnnotationName(an[i]) == "org/springframework/web/bind/annotation/GetMapping"){
+			allValue = GetAnnotationArgListValue(an[i],"value");
+			return allValue[0];
+		}
+		if(GetAnnotationName(an[i]) == "org/springframework/web/bind/annotation/PostMapping"){
+			allValue = GetAnnotationArgListValue(an[i],"value");
+			return allValue[0];
+		}
+		if(GetAnnotationName(an[i]) == "org/springframework/web/bind/annotation/RequestParam"){
+			allValue = GetAnnotationArgSingValue(an[i],"value");
+			return allValue;
+		}
+		if(GetAnnotationName(an[i]) == "org/springframework/web/bind/annotation/RestController"){
+			flag = 1;
+		}
+		i = ToInt(i + 1);
+	}
+	if(flag == 1){
+		return "/";
+	}
+	return "";
+}
+
+function GetAllSpringApiClasses(){
+	array res;
+	allClass = GetAllClassName();
+	size = GetArrayNum(allClass);
+	i = 0;
+	while(i < size){
+		an = GetClassAnnotation(allClass[i]);
+		p = getSpringAnnotationValue(an);
+		if(p != ""){
+			ArrayAddEle(res,allClass[i]);
+		}
+		i = ToInt(i + 1);
+	}
+	return res;
+}

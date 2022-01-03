@@ -1,0 +1,31 @@
+#include SpringBoot/utils/SpringUtils.cheetah
+#include SpringBoot/vuln/sqlI.cheetah
+#include SpringBoot/vuln/spel.cheetah
+#include SpringBoot/vuln/rce.cheetah
+#include SpringBoot/vuln/urlredirect.cheetah
+#include SpringBoot/vuln/ssrf.cheetah
+#include SpringBoot/vuln/ssti.cheetah
+#include SpringBoot/vuln/deserialize.cheetah
+#include SpringBoot/vuln/xxe.cheetah
+
+function SetConfig(){
+	SetGlobalValue("cookie","Cookie: JSESSIONID=A04214746DAF621FC9FDB8D3DCB5EE89;");
+	return 0;
+}
+
+function main(){
+	SetConfig();
+	classes = GetAllSpringApiClasses();
+	i = 0;
+	while(i < GetArrayNum(classes)){
+		SQLTrack(classes[i]);
+		SPELTrack(classes[i]);
+		RCETrack(classes[i]);
+		URTrack(classes[i]);
+		SSRFTrack(classes[i]);
+		SSTITrack(classes[i]);
+		XXETrack(classes[i]);
+		DRTrack(classes[i]);
+		i = ToInt(i + 1);
+	}
+}
