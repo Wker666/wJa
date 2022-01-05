@@ -18,14 +18,46 @@ function main(){
 	classes = GetAllSpringApiClasses();
 	i = 0;
 	while(i < GetArrayNum(classes)){
-		SQLTrack(classes[i]);
-		SPELTrack(classes[i]);
-		RCETrack(classes[i]);
-		URTrack(classes[i]);
-		SSRFTrack(classes[i]);
-		SSTITrack(classes[i]);
-		XXETrack(classes[i]);
-		DRTrack(classes[i]);
+		try{
+			SQLTrack(classes[i]);
+		}catch(){
+			print("SQLI error!");
+		}
+		try{
+			SPELTrack(classes[i]);
+		}catch(){
+			print("SPEL error!");
+		}
+		try{
+			RCETrack(classes[i]);
+		}catch(){
+			print("RCE error!");
+		}
+		try{
+			URTrack(classes[i]);
+		}catch(){
+			print("url redict error!");
+		}
+		try{
+			SSRFTrack(classes[i]);
+		}catch(){
+			print("SSRF error!");
+		}
+		try{
+			SSTITrack(classes[i]);
+		}catch(){
+			print("SSTI error!");
+		}
+		try{
+			XXETrack(classes[i]);
+		}catch(){
+			print("XXE error!");
+		}
+		try{
+			DRTrack(classes[i]);
+		}catch(){
+			print("deserialize error!");
+		}
 		i = ToInt(i + 1);
 	}
 }
