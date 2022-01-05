@@ -1,0 +1,36 @@
+function getClassMethodName(root){
+	array res;
+	childs = GetElementChilds(root);
+	childSize = GetArrayNum(childs);
+	i = 0;
+	while(i < childSize){
+		if(GetElementName(childs[i]) == "select"){
+			attributes = GetElementAttributes(childs[i]);
+			attributeSize = GetArrayNum(attributes);
+			j = 0;
+			while(j < attributeSize){
+				if(GetAttributeName(attributes[j]) == "id"){
+					ArrayAddEle(res,GetAttributeText(attributes[j]));
+				}
+				j = ToInt(j + 1);
+			}
+		}
+		i = ToInt(i + 1);
+	}
+	return res;
+}
+function getClassName(root){
+	attributes = GetElementAttributes(root);
+	attributeSize = GetArrayNum(attributes);
+	j = 0;
+	while(j < attributeSize){
+		if(GetAttributeName(attributes[j]) == "namespace"){
+			return GetAttributeText(attributes[j]);
+		}
+		j = ToInt(j + 1);
+	}
+	return "";
+}
+function getAllMapperXmlFileNames(){
+	return GetFileName("BOOT-INF/classes/mapper_xml/");
+}

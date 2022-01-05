@@ -1,5 +1,6 @@
 #include SpringBoot/utils/SpringUtils.cheetah
-#include SpringBoot/vuln/sqlI.cheetah
+#include SpringBoot/vuln/sqlI/sqlI.cheetah
+#include SpringBoot/vuln/sqlI/mybatis.cheetah
 #include SpringBoot/vuln/spel.cheetah
 #include SpringBoot/vuln/rce.cheetah
 #include SpringBoot/vuln/urlredirect.cheetah
@@ -14,15 +15,23 @@ function SetConfig(){
 }
 
 function main(){
+trackMybatisSQL("com/jsh/erp/controller/ResourceController","getList","",3,"com/jsh/erp/datasource/mappers/UserMapperEx","selectByConditionUser");
+return 0;
 	SetConfig();
 	classes = GetAllSpringApiClasses();
 	i = 0;
 	while(i < GetArrayNum(classes)){
 		try{
+			MybatisSQLTrack(classes[i]);
+		}catch(){
+			print("mybatis SQLI error!");
+		}
+		try{
 			SQLTrack(classes[i]);
 		}catch(){
 			print("SQLI error!");
 		}
+		
 		try{
 			SPELTrack(classes[i]);
 		}catch(){

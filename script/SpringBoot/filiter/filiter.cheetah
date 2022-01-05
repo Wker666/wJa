@@ -1,6 +1,6 @@
 #define filter1=String.valueOf(.*?)
 #define filter2=Integer.valueOf(.*?)
-#define filter3=SecurityUtil.isHttp
+#define filter3=Long.valueOf(.*?)
 
 function filter(sentence){
 	a = StrRe(sentence,filter1);

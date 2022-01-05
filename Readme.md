@@ -31,3 +31,5 @@ INSERT INTO `users` VALUES (2, 'joychou', 'joychou123');
 2022.1.4:修复溢出等多个已知问题
 
 2022.1.5:修复追踪递归问题，修复反编译中if中最后while循环导致if转为while的问题
+
+2022.1.5:增加xml文件操作类库
