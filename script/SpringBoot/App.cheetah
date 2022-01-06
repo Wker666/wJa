@@ -15,8 +15,6 @@ function SetConfig(){
 }
 
 function main(){
-trackMybatisSQL("com/jsh/erp/controller/ResourceController","getList","",3,"com/jsh/erp/datasource/mappers/UserMapperEx","selectByConditionUser");
-return 0;
 	SetConfig();
 	classes = GetAllSpringApiClasses();
 	i = 0;
