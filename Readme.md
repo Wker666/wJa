@@ -18,6 +18,11 @@ INSERT INTO `users` VALUES (1, 'admin', 'admin123');
 INSERT INTO `users` VALUES (2, 'joychou', 'joychou123');
 ```
 
+# 使用的实战环境
+实战给大家带的是华夏erp的项目：https://github.com/jishenghua/jshERP
+需要进行简单的配置mysql和redis
+配置起来想对比较简单，大家可以自行clone然后打包，或者不进行黑盒衔接，只是白盒审计的话可以直接使用我给大家打包好的jar包
+
 # Issus
 
 希望大家能够提出宝贵的建议，如果程序出现一些问题能够尽早的反馈给我，我会在两到三天时间进行修复和解答，感谢大家的支持。
@@ -35,3 +40,5 @@ INSERT INTO `users` VALUES (2, 'joychou', 'joychou123');
 2022.1.5:增加xml文件操作类库
 
 2022.1.6:优化追踪算法，实现完全流式追踪算法
+
+2022.1.10:优化部分代码，对于函数部分显示正常，更加精准的展示函数分类，更新了cheetah脚本代码

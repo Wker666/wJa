@@ -3,6 +3,7 @@
 #include SpringBoot/vuln/sqlI/mybatis.cheetah
 #include SpringBoot/vuln/spel.cheetah
 #include SpringBoot/vuln/rce.cheetah
+#include SpringBoot/vuln/packageVuln/fastjson.cheetah
 #include SpringBoot/vuln/urlredirect.cheetah
 #include SpringBoot/vuln/ssrf.cheetah
 #include SpringBoot/vuln/ssti.cheetah
@@ -10,7 +11,8 @@
 #include SpringBoot/vuln/xxe.cheetah
 
 function SetConfig(){
-	SetGlobalValue("cookie","Cookie: JSESSIONID=A04214746DAF621FC9FDB8D3DCB5EE89;");
+	SetGlobalValue("cookie","Cookie: Hm_lvt_1cd9bcbaae133f03a6eb19da6579aaba=1641549617,1641550812; Hm_lpvt_1cd9bcbaae133f03a6eb19da6579aaba=1641550812;".StrRN()."X-Access-Token: f2f68e8901e94c3aa2dc499384f8de70_63");
+	SetGlobalValue("baseUrl","http://localhost:3000/jshERP-boot");
 	return 0;
 }
 
@@ -20,51 +22,57 @@ function main(){
 	i = 0;
 	while(i < GetArrayNum(classes)){
 		try{
-			MybatisSQLTrack(classes[i]);
+			FastjsonTrack(classes[i]);
 		}catch(){
-			print("mybatis SQLI error!");
+			print("FastjsonTrack error!");
 		}
-		try{
-			SQLTrack(classes[i]);
-		}catch(){
-			print("SQLI error!");
-		}
-		
-		try{
-			SPELTrack(classes[i]);
-		}catch(){
-			print("SPEL error!");
-		}
-		try{
-			RCETrack(classes[i]);
-		}catch(){
-			print("RCE error!");
-		}
-		try{
-			URTrack(classes[i]);
-		}catch(){
-			print("url redict error!");
-		}
-		try{
-			SSRFTrack(classes[i]);
-		}catch(){
-			print("SSRF error!");
-		}
-		try{
-			SSTITrack(classes[i]);
-		}catch(){
-			print("SSTI error!");
-		}
-		try{
-			XXETrack(classes[i]);
-		}catch(){
-			print("XXE error!");
-		}
-		try{
-			DRTrack(classes[i]);
-		}catch(){
-			print("deserialize error!");
-		}
+//		
+//		try{
+//			MybatisSQLTrack(classes[i]);
+//		}catch(){
+//			print("mybatis SQLI error!");
+//		}
+//		try{
+//			SQLTrack(classes[i]);
+//		}catch(){
+//			print("SQLI error!");
+//		}
+//		
+//		try{
+//			SPELTrack(classes[i]);
+//		}catch(){
+//			print("SPEL error!");
+//		}
+//		try{
+//			RCETrack(classes[i]);
+//		}catch(){
+//			print("RCE error!");
+//		}
+//		try{
+//			URTrack(classes[i]);
+//		}catch(){
+//			print("url redict error!");
+//		}
+//		try{
+//			SSRFTrack(classes[i]);
+//		}catch(){
+//			print("SSRF error!");
+//		}
+//		try{
+//			SSTITrack(classes[i]);
+//		}catch(){
+//			print("SSTI error!");
+//		}
+//		try{
+//			XXETrack(classes[i]);
+//		}catch(){
+//			print("XXE error!");
+//		}
+//		try{
+//			DRTrack(classes[i]);
+//		}catch(){
+//			print("deserialize error!");
+//		}
 		i = ToInt(i + 1);
 	}
 }

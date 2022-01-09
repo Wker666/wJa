@@ -21,7 +21,7 @@ function trackSSRF(className,methodName,url,argIndex){
 	cs = 1;
 	while(i < size){
 		sentence = GetJavaSentence(allNode[i]);
-		noSan = filter(sentence);
+		noSan = filter(sentence,GetTrackName(allNode[i]));
 		if(noSan == 0){cc = 5;cs = 5;}
 		if(i == ToInt((size-1))){
 			if(cc != 5){cs = 2;cc = 3;}
@@ -61,7 +61,7 @@ function trackSSRF(className,methodName,url,argIndex){
 }
 function SSRFTrack(className){
 	an = GetClassAnnotation(className);
-	classPath = "http://127.0.0.1:8080".getSpringAnnotationValue(an);
+	classPath = baseUrl.getSpringAnnotationValue(an);
 	methods = GetAllMethodName(className);
 	size = GetArrayNum(methods);
 	i = 0;

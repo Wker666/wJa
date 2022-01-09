@@ -45,3 +45,66 @@ function GetAllSpringApiClasses(){
 	}
 	return res;
 }
+
+function GetConfigeFileMap(path){
+    ap = GetFileContent(path);
+    allPro = StrSplit(ap,StrRN());
+    i = 0;
+    size = GetArrayNum(allPro);
+    res = GetHashMap();
+    while(i < size){
+        cur = allPro[i];
+        index = StrFindStr(cur,"=",0);
+        if(index == "-1"){
+        	i = ToInt(i+1);
+        	continue;
+        }
+        key = StrSubString(cur,0,index);
+        value = StrSubString(cur,ToInt(index+1),GetStrLength(cur));
+        SetHashMapValue(res,key,value);
+        i = ToInt(i+1);
+    }
+    return res;
+}
+
+function GetApplicationPro(){
+	return GetConfigeFileMap("BOOT-INF/classes/application.properties");
+}
+
+function GetPomPath(){
+	m = GetConfigeFileMap("META-INF/build-info.properties");
+	return "META-INF/maven/".GetHashMapValue(m,"build.group")."/".GetHashMapValue(m,"build.name")."/pom.xml";
+}
+
+function GetDependencyMap(node){
+	dep_childs = GetElementChilds(node);
+	dep_childSize = GetArrayNum(dep_childs);
+	j = 0;
+	res = GetHashMap();
+	while(j < dep_childSize){
+		SetHashMapValue(res,GetElementName(dep_childs[j]),GetElementText(dep_childs[j]));
+		j = ToInt(j + 1);
+	}
+	return res;
+}
+
+function GetPomDependencies(){
+	array res;
+	root = GetXMLRoot(GetFileContent(GetPomPath()));
+	childs = GetElementChilds(root);
+	childSize = GetArrayNum(childs);
+	i = 0;
+	while(i < childSize){
+		if(GetElementName(childs[i]) == "dependencies"){
+			dep_childs = GetElementChilds(childs[i]);
+			dep_childSize = GetArrayNum(dep_childs);
+			j = 0;
+			while(j < dep_childSize){
+				ArrayAddEle(res,GetDependencyMap(dep_childs[j]));
+				j = ToInt(j + 1);
+			}
+		}
+		i = ToInt(i + 1);
+	}
+	return res;
+}

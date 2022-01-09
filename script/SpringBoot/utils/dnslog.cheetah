@@ -1,9 +1,11 @@
 function getDnsLogDomain(){
     SetGlobalValue("dnslogCookie","User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.87 Safari/537.36".StrRN()."Cookie: PHPSESSID=wJa;");
     res = HttpGet("http://www.dnslog.cn/getdomain.php?t=0.02695357778962082",dnslogCookie);
-    return res[0];
+    dns = StrSplit(res[0],StrRN());
+    return dns[0];
 }
 function getDnsLogRecord(){
     res = HttpGet("http://www.dnslog.cn/getrecords.php?t=0.29442376629799494",dnslogCookie);
-    return res[0];
+    rec = StrSplit(res[0],StrRN());
+    return rec[0];
 }

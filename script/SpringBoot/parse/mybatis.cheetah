@@ -1,3 +1,4 @@
+#include SpringBoot/utils/SpringUtils.cheetah
 function getClassMethodName(root){
 	array res;
 	childs = GetElementChilds(root);
@@ -32,5 +33,9 @@ function getClassName(root){
 	return "";
 }
 function getAllMapperXmlFileNames(){
-	return GetFileName("BOOT-INF/classes/mapper_xml/");
+	pro = GetApplicationPro();
+	v = GetHashMapValue(pro,"mybatis-plus.mapper-locations");
+	index = StrFindStr(v,":",0);
+	path = StrSubString(v,ToInt(index+1),GetStrLength(v));
+	return MatchesFileName(path);
 }
