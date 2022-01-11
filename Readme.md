@@ -42,3 +42,5 @@ INSERT INTO `users` VALUES (2, 'joychou', 'joychou123');
 2022.1.6:优化追踪算法，实现完全流式追踪算法
 
 2022.1.10:优化部分代码，对于函数部分显示正常，更加精准的展示函数分类，更新了cheetah脚本代码
+
+2022.1.11:增加插桩IAST，通过javaagent获取真正函数流，修复对于while(true)无法反编译的bug
