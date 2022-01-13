@@ -44,3 +44,5 @@ INSERT INTO `users` VALUES (2, 'joychou', 'joychou123');
 2022.1.10:优化部分代码，对于函数部分显示正常，更加精准的展示函数分类，更新了cheetah脚本代码
 
 2022.1.11:增加插桩IAST，通过javaagent获取真正函数流，修复对于while(true)无法反编译的bug
+
+2022.1.13:修复switch包在while底部的错误，以及switch未排序问题
