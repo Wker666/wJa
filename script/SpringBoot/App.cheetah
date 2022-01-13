@@ -26,53 +26,53 @@ function main(){
 		}catch(){
 			print("FastjsonTrack error!");
 		}
-//		
-//		try{
-//			MybatisSQLTrack(classes[i]);
-//		}catch(){
-//			print("mybatis SQLI error!");
-//		}
-//		try{
-//			SQLTrack(classes[i]);
-//		}catch(){
-//			print("SQLI error!");
-//		}
-//		
-//		try{
-//			SPELTrack(classes[i]);
-//		}catch(){
-//			print("SPEL error!");
-//		}
-//		try{
-//			RCETrack(classes[i]);
-//		}catch(){
-//			print("RCE error!");
-//		}
-//		try{
-//			URTrack(classes[i]);
-//		}catch(){
-//			print("url redict error!");
-//		}
-//		try{
-//			SSRFTrack(classes[i]);
-//		}catch(){
-//			print("SSRF error!");
-//		}
-//		try{
-//			SSTITrack(classes[i]);
-//		}catch(){
-//			print("SSTI error!");
-//		}
-//		try{
-//			XXETrack(classes[i]);
-//		}catch(){
-//			print("XXE error!");
-//		}
-//		try{
-//			DRTrack(classes[i]);
-//		}catch(){
-//			print("deserialize error!");
-//		}
+		
+		try{
+			MybatisSQLTrack(classes[i]);
+		}catch(){
+			print("mybatis SQLI error!");
+		}
+		try{
+			SQLTrack(classes[i]);
+		}catch(){
+			print("SQLI error!");
+		}
+		
+		try{
+			SPELTrack(classes[i]);
+		}catch(){
+			print("SPEL error!");
+		}
+		try{
+			RCETrack(classes[i]);
+		}catch(){
+			print("RCE error!");
+		}
+		try{
+			URTrack(classes[i]);
+		}catch(){
+			print("url redict error!");
+		}
+		try{
+			SSRFTrack(classes[i]);
+		}catch(){
+			print("SSRF error!");
+		}
+		try{
+			SSTITrack(classes[i]);
+		}catch(){
+			print("SSTI error!");
+		}
+		try{
+			XXETrack(classes[i]);
+		}catch(){
+			print("XXE error!");
+		}
+		try{
+			DRTrack(classes[i]);
+		}catch(){
+			print("deserialize error!");
+		}
 		i = ToInt(i + 1);
 	}
 }

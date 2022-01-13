@@ -37,5 +37,5 @@ function getAllMapperXmlFileNames(){
 	v = GetHashMapValue(pro,"mybatis-plus.mapper-locations");
 	index = StrFindStr(v,":",0);
 	path = StrSubString(v,ToInt(index+1),GetStrLength(v));
-	return MatchesFileName(path);
+	return MatchesFileName(GetFilePath(path));
 }

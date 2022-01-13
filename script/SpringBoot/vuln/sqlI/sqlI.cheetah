@@ -55,7 +55,7 @@ function trackSQL(className,methodName,url,argIndex){
 			}else{
 				printcolor("[-]生成测试链接:".api."   测试不存在SQL注入漏洞!请自行测试。".StrRN(),5);
 			}
-			print("IAST真是调用链:",StopRecordFun(className.".".methodName));
+			print("IAST真实调用链:",StopRecordFun(className.".".methodName));
 		}else{
 			printcolor("测试链接生成失败,error:未找到参数入口!".StrRN(),5);
 		}
