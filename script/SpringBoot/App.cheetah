@@ -11,8 +11,11 @@
 #include SpringBoot/vuln/xxe.cheetah
 
 function SetConfig(){
-	SetGlobalValue("cookie","Cookie: Hm_lvt_1cd9bcbaae133f03a6eb19da6579aaba=1641549617,1641550812; Hm_lpvt_1cd9bcbaae133f03a6eb19da6579aaba=1641550812;".StrRN()."X-Access-Token: f2f68e8901e94c3aa2dc499384f8de70_63");
-	SetGlobalValue("baseUrl","http://localhost:3000/jshERP-boot");
+//	SetGlobalValue("cookie","Cookie: Hm_lvt_1cd9bcbaae133f03a6eb19da6579aaba=1641549617,1641550812; Hm_lpvt_1cd9bcbaae133f03a6eb19da6579aaba=1641550812;".StrRN()."X-Access-Token: f2f68e8901e94c3aa2dc499384f8de70_63");
+//	SetGlobalValue("baseUrl","http://localhost:3000/jshERP-boot");
+	SetGlobalValue("cookie","Cookie: JSESSIONID=13B8E999FAAB75394CE855D7FB10A0D5; XSRF-TOKEN=5f262b43-5cbd-4d8a-a601-44ccb56b2c4c; remember-me=YWRtaW46MTY0MzQ2MjY1Njk0NTo3MmY5OTA4YjQzMDdhZmVmMDY3MDM0YjQ3ODg5NmU3Yw");
+	SetGlobalValue("baseUrl","http://127.0.0.1:8080");
+
 	return 0;
 }
 
