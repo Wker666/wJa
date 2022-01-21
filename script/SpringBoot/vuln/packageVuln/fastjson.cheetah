@@ -10,9 +10,9 @@ function judgeFastjson(api){
 	}
 	return 0;
 }
-function trackFastjson(className,methodName,url,argIndex){
+function trackFastjson(className,methodName,url,argIndex,type){
 	array allNode;
-	allNode = TrackVarIntoFun(className,methodName,argIndex,"com/alibaba/fastjson/JSONObject","parseObject",0,1);
+	allNode = TrackVarIntoFun(className,methodName,argIndex,"com/alibaba/fastjson/JSON".type,"parseObject",0,1);
 	size = GetArrayNum(allNode);
 	if(ToInt(size-1) < 0){return 0;}
 	i = 0;
@@ -69,7 +69,10 @@ function FastjsonTrack(className){
 		argCnt = GetMethodArgCnt(className,methods[i]);
 		j = 0;
 		while(j < argCnt){
-			if(methods[i] != "<init>"){trackFastjson(className,methods[i],classPath,j);}
+			if(methods[i] != "<init>"){
+				trackFastjson(className,methods[i],classPath,j,"Object");
+				trackFastjson(className,methods[i],classPath,j,"");
+			}
 			j = ToInt(j+1);
 		}
 		i = ToInt(i+1);
