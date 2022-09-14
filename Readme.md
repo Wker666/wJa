@@ -49,6 +49,8 @@ INSERT INTO `users` VALUES (2, 'joychou', 'joychou123');
 
 2022.1.21:修复mac下文件读取错误，增加readme
 
+2022.9.15:修复无package错误
+
 # wJa
 
 wJa是一款结合DAST、SAST、IAST的综合性应用程序安全分析工具，支持对java web程序的安全性进行分析，含有反编译，代码审计，调试jar包，代理追踪等用于分析软件安全的功能。
