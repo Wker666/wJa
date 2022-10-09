@@ -51,6 +51,8 @@ INSERT INTO `users` VALUES (2, 'joychou', 'joychou123');
 
 2022.9.15:修复无package错误
 
+2022/10/10:修复runtime库类 lib类对象无法分析，修复静态对象无法分析，自带rt.jar
+
 # wJa
 
 wJa是一款结合DAST、SAST、IAST的综合性应用程序安全分析工具，支持对java web程序的安全性进行分析，含有反编译，代码审计，调试jar包，代理追踪等用于分析软件安全的功能。
